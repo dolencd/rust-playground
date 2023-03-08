@@ -13,7 +13,7 @@ impl std::fmt::Display for WrappedVec<Segment> {
         for el in self.0.to_owned() {
             writeln!(f, "{}", el)?;
         }
-        return Ok(());
+        Ok(())
     }
 }
 impl std::fmt::Display for WrappedVec<Path> {
@@ -21,7 +21,7 @@ impl std::fmt::Display for WrappedVec<Path> {
         for el in self.0.to_owned() {
             writeln!(f, "{}", el)?;
         }
-        return Ok(());
+        Ok(())
     }
 }
 
@@ -34,7 +34,7 @@ fn main() -> Result<()> {
     .iter()
     .flat_map(|input_str| {
         let seg = Segment::new(input_str).unwrap();
-        return [seg.get_reverse(), seg];
+        [seg.get_reverse(), seg]
     })
     .collect();
     println!("{}", WrappedVec(segments.to_owned()));
@@ -42,7 +42,7 @@ fn main() -> Result<()> {
     println!("{}", found_paths.len());
     // println!("{}", WrappedVec(found_paths));
 
-    return Ok(());
+    Ok(())
 }
 
 fn get_paths(segments: &Vec<Segment>) -> Vec<Path> {

@@ -5,11 +5,11 @@ pub struct Position(pub i32, pub i32);
 
 impl Position {
     pub fn new(input_string: &str) -> Option<Self> {
-        let mut input = input_string.split(",");
-        return Some(Position(
+        let mut input = input_string.split(',');
+        Some(Position(
             input.next()?.parse().ok()?,
             input.next()?.parse().ok()?,
-        ));
+        ))
     }
 
     pub fn move_position(&mut self, x: i32, y: i32) {

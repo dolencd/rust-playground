@@ -13,12 +13,12 @@ impl Display for Grid {
                     .iter()
                     .any(|pos_internal| *pos_internal == Position(x, y))
                 {
-                    write!(f, "{}", '#')?;
+                    write!(f, "#")?;
                 } else {
-                    write!(f, "{}", '.')?;
+                    write!(f, ".")?;
                 }
             }
-            write!(f, "\n")?;
+            writeln!(f)?;
         }
         Ok(())
     }
@@ -28,7 +28,7 @@ impl Grid {
     pub fn new(input: &str) -> Self {
         Self(
             input
-                .split("\n")
+                .split('\n')
                 .map(|s| Position::new(s).unwrap())
                 .collect(),
         )
@@ -60,7 +60,7 @@ impl Grid {
                 if !acc.iter().any(|pos_internal| pos_internal == pos) {
                     acc.push(pos.to_owned());
                 }
-                return acc;
+                acc
             })
     }
 

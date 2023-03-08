@@ -40,7 +40,7 @@ impl TryFrom<char> for ChunkBoundary {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Row {
     chars: Vec<ChunkBoundary>,
 }
@@ -56,7 +56,7 @@ impl TryFrom<Vec<char>> for Row {
             }
             row.add(&parsed_char);
         }
-        return Ok(row);
+        Ok(row)
     }
 }
 
@@ -75,11 +75,10 @@ impl Row {
         }
     }
 
-    pub fn add(&mut self, chunk_boundary_to_add: &ChunkBoundary) -> () {
+    pub fn add(&mut self, chunk_boundary_to_add: &ChunkBoundary) {
         match chunk_boundary_to_add {
             ChunkBoundary::RA | ChunkBoundary::RB | ChunkBoundary::RC | ChunkBoundary::RD => {
                 self.chars.pop();
-                ()
             }
             ChunkBoundary::LA | ChunkBoundary::LB | ChunkBoundary::LC | ChunkBoundary::LD => {
                 self.chars.push(*chunk_boundary_to_add)
@@ -105,12 +104,6 @@ impl Row {
             total *= 5;
             total += i32::from(char) as i128;
         }
-        return total;
-    }
-}
-
-impl Default for Row {
-    fn default() -> Self {
-        Row { chars: vec![] }
+        total
     }
 }

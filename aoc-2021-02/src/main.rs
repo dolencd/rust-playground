@@ -1,4 +1,4 @@
-use std::{fs, env};
+use std::{env, fs};
 
 fn main() {
     let input_string = fs::read_to_string(

@@ -1,5 +1,5 @@
 use itertools::Itertools;
-use std::{fs, vec, env};
+use std::{env, fs, vec};
 
 // const VALID_GROUPS: [Vec<char>; 10] = [
 //     vec!['a', 'b', 'c', 'e', 'f', 'g'],      // 0
@@ -42,7 +42,7 @@ fn main() {
     )
     .unwrap();
 
-    let display_strings = input_string.split("\n");
+    let display_strings = input_string.split('\n');
 
     let sum_of_digits: u32 = display_strings
         .map(|display_string| -> u32 {
@@ -59,7 +59,6 @@ fn main() {
     print!("{:?}", sum_of_digits);
     // print!("{}", seafloor.count_squares_greater_than(1));
     // println!("Done, {:?}", parsed_straight_hotsprings);
-    return ();
 }
 
 fn get_number_using_mapping(mapping: &Vec<u32>, code: &Vec<u32>) -> u32 {
@@ -99,7 +98,6 @@ fn get_valid_mapping(inputs: &str) -> Vec<u32> {
                 .all(|word| is_valid_mapping(mapping_to_test, word))
         })
         .unwrap()
-        .to_owned()
 }
 
 fn is_valid_mapping(mapping: &Vec<u32>, input: &Vec<u32>) -> bool {
@@ -114,11 +112,7 @@ fn is_valid_mapping(mapping: &Vec<u32>, input: &Vec<u32>) -> bool {
 }
 
 fn str_to_code(input: &str) -> Vec<u32> {
-    input
-        .chars()
-        .into_iter()
-        .map(|c| letter_to_code(&c))
-        .collect()
+    input.chars().map(|c| letter_to_code(&c)).collect()
 }
 
 fn vectors_are_same<T: PartialEq>(a: &Vec<T>, b: &Vec<T>) -> bool {
@@ -128,7 +122,7 @@ fn vectors_are_same<T: PartialEq>(a: &Vec<T>, b: &Vec<T>) -> bool {
 fn letter_to_code(input: &char) -> u32 {
     // println!("{}", input);
     let parsed_digit = input.to_digit(20).unwrap();
-    return parsed_digit - 10;
+    parsed_digit - 10
 }
 
 #[cfg(test)]

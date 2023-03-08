@@ -33,7 +33,7 @@ impl PartialEq for Position {
 impl Display for Grid {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for r in self.positions {
-            write!(f, "{:?}\n", r)?;
+            writeln!(f, "{:?}", r)?;
         }
         Ok(())
     }
@@ -53,19 +53,16 @@ impl Grid {
         &'a self,
         pos: &'a Position,
     ) -> impl Iterator<Item = (Position, u8)> + 'a {
-        return (-1..2).flat_map(move |x| {
+        (-1..2).flat_map(move |x| {
             (-1..2).filter_map(move |y| {
                 if x == 0 && y == 0 {
                     return None;
                 }
                 let output_pos = *pos + Position(x, y);
-                if let Some(element) = self.get_pos(&output_pos) {
-                    return Some((output_pos, element));
-                } else {
-                    return None;
-                }
+                self.get_pos(&output_pos)
+                    .map(|element| (output_pos, element))
             })
-        });
+        })
     }
 
     pub fn flash(&mut self) -> i32 {
@@ -83,7 +80,7 @@ impl Grid {
             }
         }
 
-        return flashes;
+        flashes
     }
 
     pub fn flash_rec(&mut self, pos: &Position) -> i32 {
@@ -105,14 +102,14 @@ impl Grid {
             return flashes;
         }
 
-        return 0;
+        0
     }
 
     pub fn get_all_elements(&self) -> impl Iterator<Item = (Position, u8)> + '_ {
         self.positions
             .iter()
             .enumerate()
-            .map(|(current_row, row_array)| {
+            .flat_map(|(current_row, row_array)| {
                 row_array
                     .iter()
                     .enumerate()
@@ -126,7 +123,6 @@ impl Grid {
                         )
                     })
             })
-            .flatten()
     }
 
     fn set_value(&mut self, position: &Position, value: u8) -> bool {
@@ -137,10 +133,10 @@ impl Grid {
                     return false;};
 
         row[position.0 as usize] = value;
-        return true;
+        true
     }
 
-    fn finish_flash(&mut self) -> () {}
+    fn finish_flash(&mut self) {}
 }
 
 // impl Default for Grid {

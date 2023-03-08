@@ -1,11 +1,8 @@
-use std::{
-    collections::HashMap,
-    fmt::{write, Display},
-};
+use std::{collections::HashMap, fmt::Display};
 
 use crate::{cave::Cave, segment::Segment};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct Path {
     segments: Vec<Segment>,
 }
@@ -39,11 +36,11 @@ impl Path {
             return false;
         }
 
-        return true;
+        true
     }
     pub fn add_segment(&mut self, segment: &Segment) -> Self {
         self.segments.push(segment.to_owned());
-        return self.to_owned();
+        self.to_owned()
     }
 
     fn number_of_small_caves_appearing_more_than_times(&self, times: usize) -> usize {
@@ -64,13 +61,7 @@ impl Path {
                 }
             }
         }
-        return output_hashmap;
-    }
-}
-
-impl Default for Path {
-    fn default() -> Self {
-        Self { segments: vec![] }
+        output_hashmap
     }
 }
 
@@ -79,6 +70,6 @@ impl Display for Path {
         for seg in &self.segments {
             write!(f, "{},", seg)?;
         }
-        return Ok(());
+        Ok(())
     }
 }

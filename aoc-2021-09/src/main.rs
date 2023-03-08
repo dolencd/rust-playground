@@ -11,7 +11,7 @@ fn main() {
             let is_lower_than_adjacent = seafloor
                 .get_adjacent(&pos)
                 .iter()
-                .all(|adjacent_element| adjacent_element.1 > current_num.to_owned());
+                .all(|adjacent_element| adjacent_element.1 > *current_num);
             if is_lower_than_adjacent {
                 Some((pos, current_num.to_owned()))
             } else {
@@ -33,7 +33,7 @@ fn main() {
                     .chain(acc.into_iter())
                     .collect();
             }
-            return acc;
+            acc
         });
 
     deduped_basins.sort_by_cached_key(|basin| basin.len());

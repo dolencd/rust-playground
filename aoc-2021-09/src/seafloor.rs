@@ -13,7 +13,7 @@ pub struct Basin {
 
 impl Basin {
     pub fn len(&self) -> usize {
-        return self.positions.len();
+        self.positions.len()
     }
 }
 
@@ -70,7 +70,7 @@ impl Seafloor {
         self.positions
             .iter()
             .enumerate()
-            .map(|(current_row, row_array)| {
+            .flat_map(|(current_row, row_array)| {
                 row_array
                     .iter()
                     .enumerate()
@@ -84,7 +84,6 @@ impl Seafloor {
                         )
                     })
             })
-            .flatten()
     }
 
     fn fill_basin_positions(&self, position_arr: &mut Vec<Position>, position_to_check: Position) {
@@ -106,21 +105,9 @@ impl Seafloor {
     pub fn get_basin_with_low_point(&self, low_point: &Position) -> Basin {
         let mut basin_positions = vec![];
         self.fill_basin_positions(&mut basin_positions, low_point.to_owned());
-        return Basin {
+        Basin {
             positions: basin_positions,
-        };
-    }
-
-    // pub fn sum_of_adjacent(&self, pos: &Position) -> u8 {
-    //     self.get_adjacent(pos).iter().sum()
-    // }
-
-    pub fn get_width() -> usize {
-        SEAFLOOR_WIDTH
-    }
-
-    pub fn get_height() -> usize {
-        SEAFLOOR_HEIGHT
+        }
     }
 }
 

@@ -2,7 +2,7 @@
 mod board;
 
 use board::Board;
-use std::{fs, env};
+use std::{env, fs};
 
 fn main() {
     let input_string = fs::read_to_string(
@@ -18,7 +18,7 @@ fn main() {
     let draws = sections
         .next()
         .unwrap()
-        .split(",")
+        .split(',')
         .map(|num_str| num_str.parse::<u32>().unwrap());
 
     let mut boards: Vec<Board> = sections
@@ -28,7 +28,7 @@ fn main() {
                 .map(|num_str| num_str.parse::<u32>().unwrap())
                 .collect::<Vec<u32>>()
         })
-        .map(|num_vec| Board::from(num_vec))
+        .map(Board::from)
         .collect();
 
     for draw in draws {
@@ -46,7 +46,6 @@ fn main() {
         }
     }
     println!("no results");
-    return;
 }
 
 // fn first_challenge(draws: Vec<u32>, remaining_sections: impl Iterator<Item = &str>) -> Option<u32> {

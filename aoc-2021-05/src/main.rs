@@ -2,7 +2,7 @@
 mod seafloor;
 
 use seafloor::{point_from_comma_separated_pair, Point, Seafloor};
-use std::{fs, env};
+use std::{env, fs};
 
 use crate::seafloor::{is_line_diagonal, is_line_straight};
 
@@ -15,7 +15,7 @@ fn main() {
     )
     .unwrap();
 
-    let hotsprings = input_string.split("\n");
+    let hotsprings = input_string.split('\n');
 
     let mut seafloor: Seafloor = Default::default();
 
@@ -25,12 +25,12 @@ fn main() {
             let point_1_str = hotspring_iter.next().unwrap();
             hotspring_iter.next(); // arrow
             let point_2_str = hotspring_iter.next().unwrap();
-            let tmp = (
+
+            // println!("{:?}, {:?}", tmp.0,tmp.1);
+            (
                 point_from_comma_separated_pair(point_1_str),
                 point_from_comma_separated_pair(point_2_str),
-            );
-            // println!("{:?}, {:?}", tmp.0,tmp.1);
-            return tmp;
+            )
         })
         .filter(|(point_1, point_2)| {
             is_line_straight(point_1, point_2) || is_line_diagonal(point_1, point_2)
@@ -46,5 +46,4 @@ fn main() {
     // print!("{}", seafloor);
     print!("{}", seafloor.count_squares_greater_than(1));
     // println!("Done, {:?}", parsed_straight_hotsprings);
-    return ();
 }

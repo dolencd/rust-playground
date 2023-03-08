@@ -22,11 +22,11 @@ impl PartialEq for Point {
 }
 
 pub fn point_from_comma_separated_pair(input_str: &str) -> Point {
-    let mut input_str_split = input_str.split(",");
-    return Point {
+    let mut input_str_split = input_str.split(',');
+    Point {
         x: input_str_split.next().unwrap().parse().unwrap(),
         y: input_str_split.next().unwrap().parse().unwrap(),
-    };
+    }
 }
 
 pub fn is_line_straight(a: &Point, b: &Point) -> bool {
@@ -39,9 +39,9 @@ pub fn is_line_diagonal(a: &Point, b: &Point) -> bool {
 
 impl Default for Seafloor {
     fn default() -> Self {
-        return Seafloor {
+        Seafloor {
             positions: [[0; SEAFLOOR_SIZE]; SEAFLOOR_SIZE],
-        };
+        }
     }
 }
 
@@ -79,12 +79,12 @@ impl<'a> Seafloor {
     pub fn count_squares_greater_than(&self, threshold: i32) -> usize {
         self.positions
             .iter()
-            .flat_map(|column| column)
+            .flatten()
             .filter(|num| num > &&threshold)
             .count()
     }
 
-    pub fn add_rect(&mut self, a: &Point, b: &Point) -> () {
+    pub fn add_rect(&mut self, a: &Point, b: &Point) {
         let (start_x, end_x) = if a.x < b.x { (a.x, b.x) } else { (b.x, a.x) };
         let (start_y, end_y) = if a.y < b.y { (a.y, b.y) } else { (b.y, a.y) };
 
@@ -95,7 +95,7 @@ impl<'a> Seafloor {
         }
     }
 
-    pub fn add_diag(&mut self, a: &Point, b: &Point) -> () {
+    pub fn add_diag(&mut self, a: &Point, b: &Point) {
         let dir_x = i32::clamp(b.x - a.x, -1, 1);
         let dir_y = i32::clamp(b.y - a.y, -1, 1);
         let dist = i32::abs(a.x - b.x);

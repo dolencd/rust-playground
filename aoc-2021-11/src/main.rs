@@ -9,7 +9,7 @@ fn main() -> Result<()> {
 
     let p: Position = Position(1, 1);
 
-    let tmp: Vec<(Position, u8)> = grid.get_adjacent(&p).collect();
+    let _tmp: Vec<(Position, u8)> = grid.get_adjacent(&p).collect();
     println!("{}", grid);
     // grid.flash_rec(&p);
     // print!("{}", grid);
@@ -22,5 +22,5 @@ fn main() -> Result<()> {
         // println!("{}", grid)
     }
 
-    return Ok(());
+    Ok(())
 }

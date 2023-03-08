@@ -1,6 +1,4 @@
-use std::{fmt::Display, mem::Discriminant};
-
-use anyhow::Ok;
+use std::fmt::Display;
 
 use crate::cave::Cave;
 
@@ -18,16 +16,16 @@ impl Display for Segment {
 
 impl Segment {
     pub fn new(input: &str) -> Option<Self> {
-        let mut input_iter = input.split("-");
+        let mut input_iter = input.split('-');
         let start: Cave = Cave::new(input_iter.next()?);
         let end: Cave = Cave::new(input_iter.next()?);
-        return Some(Segment { start, end });
+        Some(Segment { start, end })
     }
 
     pub fn get_reverse(&self) -> Self {
-        return Self {
+        Self {
             start: self.end.to_owned(),
             end: self.start.to_owned(),
-        };
+        }
     }
 }

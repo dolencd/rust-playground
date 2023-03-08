@@ -14,9 +14,9 @@ impl Display for Cave {
 
 impl Cave {
     pub fn new(value: &str) -> Self {
-        return Cave {
+        Cave {
             name: value.to_string(),
             at_most_twice_travel: value.to_lowercase() == value,
-        };
+        }
     }
 }

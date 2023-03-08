@@ -1,4 +1,4 @@
-use std::{fs, env};
+use std::{env, fs};
 
 use crate::row::{ChunkBoundary, Row};
 use anyhow::Result;
@@ -14,11 +14,11 @@ fn main() -> Result<()> {
     .unwrap();
 
     let mut scores: Vec<i128> = input_string
-        .split("\n")
+        .split('\n')
         .filter_map(|input_row| {
             let mut new_row: Row = Default::default();
             for char in input_row.chars() {
-                let parsed_char: ChunkBoundary = char.try_into().map_or(None, |a| Some(a))?;
+                let parsed_char: ChunkBoundary = char.try_into().ok()?;
                 if new_row.can_be_added(&parsed_char) {
                     new_row.add(&parsed_char);
                 } else {
@@ -39,5 +39,5 @@ fn main() -> Result<()> {
     scores.sort();
 
     println!("{:?}", scores.get((scores.len() - 1) / 2));
-    return Ok(());
+    Ok(())
 }

@@ -22,7 +22,7 @@ impl<'a> Board {
                 return true;
             }
         }
-        return false;
+        false
     }
 
     pub fn sum_of_unmarked_numbers(&self) -> u32 {

@@ -1,0 +1,1 @@
+Various projects made to learn and practice Rust.

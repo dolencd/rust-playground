@@ -1,4 +1,4 @@
-use std::{fs, env};
+use std::{env, fs};
 
 fn main() {
     let input_string = fs::read_to_string(
@@ -9,7 +9,7 @@ fn main() {
     )
     .unwrap();
 
-    let rows: Vec<&str> = input_string.split("\n").collect();
+    let rows: Vec<&str> = input_string.split('\n').collect();
 
     let rows_digits: Vec<[i32; 12]> = rows.into_iter().map(row_to_int_vec).collect();
 
@@ -31,7 +31,7 @@ fn filter_by_most_common_digit(input_arr: &Vec<[i32; 12]>) -> [i32; 12] {
         let most_common_digit = if count_1 >= count_0 { 1 } else { 0 };
         array_to_filter = filter_array_based_on_digit(&array_to_filter, i, most_common_digit)
     }
-    return array_to_filter[0];
+    array_to_filter[0]
 }
 
 fn filter_by_least_common_digit(input_arr: &Vec<[i32; 12]>) -> [i32; 12] {
@@ -45,7 +45,7 @@ fn filter_by_least_common_digit(input_arr: &Vec<[i32; 12]>) -> [i32; 12] {
         let least_common_digit = if count_1 < count_0 { 1 } else { 0 };
         array_to_filter = filter_array_based_on_digit(&array_to_filter, i, least_common_digit)
     }
-    return array_to_filter[0];
+    array_to_filter[0]
 }
 
 fn count_0_and_1(input_arr: &Vec<[i32; 12]>, index: usize) -> (usize, usize) {
@@ -55,12 +55,8 @@ fn count_0_and_1(input_arr: &Vec<[i32; 12]>, index: usize) -> (usize, usize) {
         .into_iter()
         .filter(|digit| *digit == 1)
         .count();
-    let count_0 = digits
-        .to_owned()
-        .into_iter()
-        .filter(|digit| *digit == 0)
-        .count();
-    return (count_0, count_1);
+    let count_0 = digits.into_iter().filter(|digit| *digit == 0).count();
+    (count_0, count_1)
 }
 
 fn filter_array_based_on_digit(
@@ -102,7 +98,7 @@ fn to_i32(slice: &[i32]) -> i32 {
         .iter()
         .rev()
         .fold((0, 1), |(acc, mul), &bit| {
-            (acc + (mul * (1 & bit as i32)), mul.wrapping_add(mul))
+            (acc + (mul * (1 & bit)), mul.wrapping_add(mul))
         })
         .0
 }

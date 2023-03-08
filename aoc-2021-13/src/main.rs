@@ -1,4 +1,4 @@
-use std::{fs, env};
+use std::{env, fs};
 
 use anyhow::Result;
 use grid::Grid;
@@ -35,12 +35,12 @@ fn main() -> Result<()> {
 
     print!("dots: {}", grid.number_of_dots());
 
-    return Ok(());
+    Ok(())
 }
 
 fn extract_fold_strings(input: &str) -> Vec<(char, i32)> {
     input
-        .split("\n")
+        .split('\n')
         .map(|row| {
             (
                 row.chars().nth(11).unwrap(),
