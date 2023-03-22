@@ -1,9 +1,6 @@
 mod game_map;
-pub mod position;
 
-pub use position::Position;
-
-use crate::render::Renderable;
+use crate::{position::Position, render::Renderable};
 
 pub const WORLD_SIZE: i32 = 64;
 pub const VIEW_SIZE: i32 = 12;
@@ -13,28 +10,29 @@ pub struct World {
 }
 
 impl World {
-    pub fn render(&self, center: &Position) -> String {
-        ((center.1 - VIEW_SIZE - 1)..(center.1 + VIEW_SIZE))
-            .rev()
-            .map(|y| {
-                ((center.0 - VIEW_SIZE - 1)..(center.0 + VIEW_SIZE))
-                    .map(|x| match self.get_square_contents(&Position(x, y)) {
-                        None => 'x',
-                        Some(c) => c,
-                    })
-                    .collect::<String>()
-            })
-            .collect::<Vec<String>>()
-            .join("\n")
+    pub fn is_solid(&self, pos: &Position) -> bool {
+        match self.get_square_contents(pos) {
+            None => true,
+            Some(' ') => false,
+            _ => true,
+        }
     }
 
-    pub fn get_square_contents(&self, pos: &Position) -> Option<char> {
-        Some(*self.squares.get(pos.1 as usize)?.get(pos.0 as usize)?)
+    pub fn get_square_contents_mut(&mut self, pos: &Position) -> Option<&mut char> {
+        Some(
+            self.squares
+                .get_mut(pos.1 as usize)?
+                .get_mut(pos.0 as usize)?,
+        )
+    }
+
+    pub fn get_square_contents(&self, pos: &Position) -> Option<&char> {
+        Some(self.squares.get(pos.1 as usize)?.get(pos.0 as usize)?)
     }
 }
 
 impl Renderable for World {
-    fn get_at_position(&self, position: &Position) -> Option<char> {
+    fn get_at_position(&self, position: &Position) -> Option<&char> {
         self.get_square_contents(position)
     }
 }

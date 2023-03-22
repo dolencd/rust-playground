@@ -1,19 +1,20 @@
 mod controls;
 mod player;
+mod position;
 mod render;
 mod world;
 
 use std::io::{self, Read};
 
 use player::Player;
-use world::{Position, World};
+use world::World;
 
 use termios::{tcsetattr, Termios, ECHO, ICANON, TCSANOW};
 
-use crate::{controls::Controls, player::Direction};
+use crate::{controls::Controls, position::Direction};
 
 fn main() -> io::Result<()> {
-    let world = World::new();
+    let mut world = World::new();
     let mut player = Player::new();
     let mut stdin = io::stdin();
 
@@ -22,6 +23,7 @@ fn main() -> io::Result<()> {
     tcsetattr(0, TCSANOW, &mut termios).unwrap();
 
     let mut input: [u8; 4] = Default::default();
+
     loop {
         input.fill(0);
         stdin.read(&mut input).unwrap();
@@ -31,10 +33,12 @@ fn main() -> io::Result<()> {
         };
 
         match command {
-            Controls::MoveUp => player.move_in_direction(Direction::Up),
-            Controls::MoveLeft => player.move_in_direction(Direction::Left),
-            Controls::MoveDown => player.move_in_direction(Direction::Down),
-            Controls::MoveRight => player.move_in_direction(Direction::Right),
+            Controls::MoveUp => player.move_in_direction(&world, Direction::Up),
+            Controls::MoveLeft => player.move_in_direction(&world, Direction::Left),
+            Controls::MoveDown => player.move_in_direction(&world, Direction::Down),
+            Controls::MoveRight => player.move_in_direction(&world, Direction::Right),
+            Controls::Esc => break,
+            Controls::InventorySlot(e) => player.interact(&mut world, &e),
         }
         println!(
             "\n\n{}",

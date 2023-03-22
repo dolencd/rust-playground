@@ -1,7 +1,7 @@
-use crate::world::{Position, VIEW_SIZE};
+use crate::{position::Position, world::VIEW_SIZE};
 
 pub trait Renderable {
-    fn get_at_position(&self, position: &Position) -> Option<char>;
+    fn get_at_position(&self, position: &Position) -> Option<&char>;
 }
 
 pub fn render(layers: &[&dyn Renderable], center: &Position) -> String {
@@ -15,7 +15,7 @@ pub fn render(layers: &[&dyn Renderable], center: &Position) -> String {
                         .find_map(|renderable| renderable.get_at_position(&Position(x, y)))
                     {
                         None => 'x',
-                        Some(c) => c,
+                        Some(c) => *c,
                     }
                 })
                 .collect::<String>()
