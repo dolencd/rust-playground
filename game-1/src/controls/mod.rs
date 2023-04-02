@@ -15,7 +15,7 @@ impl TryFrom<[u8; 4]> for Controls {
             [97, 0, 0, 0] => Controls::MoveLeft,
             [115, 0, 0, 0] => Controls::MoveDown,
             [100, 0, 0, 0] => Controls::MoveRight,
-            [e @ 49..=56, 0, 0, 0] => Controls::InventorySlot(e),
+            [e @ 49..=56, 0, 0, 0] => Controls::InventorySlot(e - 48),
             [27, 0, 0, 0] => Controls::Esc,
             _ => return Err(()),
         })

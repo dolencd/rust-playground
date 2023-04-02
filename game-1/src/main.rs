@@ -24,6 +24,12 @@ fn main() -> io::Result<()> {
 
     let mut input: [u8; 4] = Default::default();
 
+    println!(
+        "\n\n{}",
+        render::render(&[&player, &world], &player.position)
+    );
+    player.render_inventory();
+
     loop {
         input.fill(0);
         stdin.read(&mut input).unwrap();
@@ -44,6 +50,7 @@ fn main() -> io::Result<()> {
             "\n\n{}",
             render::render(&[&player, &world], &player.position)
         );
+        player.render_inventory();
     }
 
     Ok(())

@@ -3,7 +3,7 @@ mod game_map;
 use crate::{position::Position, render::Renderable};
 
 pub const WORLD_SIZE: i32 = 64;
-pub const VIEW_SIZE: i32 = 12;
+pub const VIEW_SIZE: i32 = 10;
 
 pub struct World {
     pub(crate) squares: [[char; WORLD_SIZE as usize]; WORLD_SIZE as usize],

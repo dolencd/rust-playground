@@ -81,6 +81,26 @@ impl Player {
     fn get_position_in_front(&self) -> Position {
         self.position + self.direction.into()
     }
+
+    pub fn render_inventory(&self) -> () {
+        println!("┏━┳━┳━┳━┳━┳━┳━┳━┳━┳━┓");
+        println!("┃1┃2┃3┃4┃5┃6┃7┃8┃9┃0┃");
+        println!("┠─╂─╂─╂─╂─╂─╂─╂─╂─╂─┨");
+        println!(
+            "┃{}┃{}┃{}┃{}┃{}┃{}┃{}┃{}┃{}┃{}┃",
+            self.inventory.get(&1).unwrap_or(&' '),
+            self.inventory.get(&2).unwrap_or(&' '),
+            self.inventory.get(&3).unwrap_or(&' '),
+            self.inventory.get(&4).unwrap_or(&' '),
+            self.inventory.get(&5).unwrap_or(&' '),
+            self.inventory.get(&6).unwrap_or(&' '),
+            self.inventory.get(&7).unwrap_or(&' '),
+            self.inventory.get(&8).unwrap_or(&' '),
+            self.inventory.get(&9).unwrap_or(&' '),
+            self.inventory.get(&0).unwrap_or(&' ')
+        );
+        println!("┗━┻━┻━┻━┻━┻━┻━┻━┻━┻━┛");
+    }
 }
 
 impl Renderable for Player {
