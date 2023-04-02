@@ -18,5 +18,6 @@ members = [
     "rocket-1",
     "game-1",
     "chat-server",
-    "chat-client"
+    "chat-client",
+    "wave"
 ]
