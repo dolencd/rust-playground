@@ -32,6 +32,7 @@ impl TryFrom<&[Token]> for Operation {
 
         let possible_low_priority_operator = operators
             .iter()
+            .rev()
             .find(|(_, operator)| matches!(operator, Operator::Add | Operator::Subtract));
 
         let Some((index, operator)) = possible_low_priority_operator
